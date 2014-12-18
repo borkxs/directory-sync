@@ -1,4 +1,5 @@
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     mkpath = require('mkpath'),
     copyFile = require('./copyfile'),
     watchTree = require('fs-watch-tree').watchTree;
@@ -20,15 +21,20 @@ watchTree(config.source[0], config.options, function(event) {
         fpath = config.target + fname,
         fdir = path.dirname(fpath);
 
-    // make path if it doesn't exist
-    mkpath(fdir, function(err) {
-        if (err) throw err;
-
-        copyFile(event.name, fpath, function(err) {
-            if (err) throw err;
-            console.log('Updated ' + fpath);
+    if ( event.isDelete() )
+        fs.unlink(fpath, function (err) {
+          if (err) throw err;
+          console.log('Deleted ' + fpath);
         });
+    else
+        mkpath(fdir, function(err) { // make path if it doesn't exist
+            if (err) throw err;
 
-    });
+            copyFile(event.name, fpath, function(err) {
+                if (err) throw err;
+                console.log('Updated ' + fpath);
+            });
+
+        });
 
 });
