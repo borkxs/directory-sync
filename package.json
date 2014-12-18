@@ -1,0 +1,9 @@
+{
+    "name": "directory-sync",
+    "version": "0.0.1",
+    "author": "Erik Michaelson <emichaelson@meta-comm.com>",
+    "dependencies": {
+        "mkpath": "*",
+        "fs-watch-tree": "*"
+    }
+}
