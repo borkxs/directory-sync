@@ -5,10 +5,10 @@ var path = require('path'),
 
 var config = {
     source: [
-        '/Users/emichaelson/Code/trunk.professional_services/Ralph_Lauren',
-        'professional_services/'
+        '/Users/username/directory/directory-to-watch',
+        'directory/'
         ],
-    target: '/Volumes/C/Users/emichaelson/test2/',
+    target: '/Volumes/C/Users/username/target/',
     options: {
         exclude: ['node_modules', '~', '#', /^\./]
     }

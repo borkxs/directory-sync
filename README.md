@@ -10,7 +10,7 @@ Uses a handful of small node tools to keep a master-slave directory sync relatio
 
 ## Usage
 
-Right now it only works if you have write access to the files. This shouldn't be be a problem as
+Right now it only works if you have write access to the target directory. Initial setup should be copying the entire directory manually to the target location and ensuring that the directory is not read-only.
 
 ### Forever
 
@@ -20,9 +20,11 @@ You'll want to use forever:
 
 Simplest uses:
 
-`forever start script.js`
-`forever stop script.js`
-`forever stopall`
+```
+forever start script.js
+forever stop script.js
+forever stopall
+```
 
 ### Script Configuration
 
@@ -39,5 +41,3 @@ Mount your parallels harddrive on your mac and check for it's location in /Volum
 ```
 ls /Volumes
 ```
-
-You can use this as your target directory.
