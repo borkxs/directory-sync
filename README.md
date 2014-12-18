@@ -41,3 +41,7 @@ Mount your parallels harddrive on your mac and check for it's location in /Volum
 ```
 ls /Volumes
 ```
+
+## ToDo
+
+* starting the script should handle copying the whole directory (to get any changes that may have happened while script is not running)
