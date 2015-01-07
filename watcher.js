@@ -5,17 +5,14 @@ var fs = require('fs'),
     watchTree = require('fs-watch-tree').watchTree;
 
 function watcher(source, target, options) {
-
     watchTree(source, options, function(event) {
-
         var fname = path.basename(event.name),
-            fpath = path.normalize(target + '/' + fname);
+            fpath = path.normalize(target + '/' + event.name.split(source)[1]);
 
         if (event.isDelete())
             remove(fpath);
         else
-            copy(event.name, fpath);
-            
+            copy(event.name, fpath); 
     });
 }
 
@@ -33,7 +30,6 @@ function copy(source, target) {
             if (err) throw err;
             console.log('Copied ' + source + ' to ' + target);
         });
-
     });
 }
 
