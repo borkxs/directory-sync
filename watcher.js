@@ -6,14 +6,14 @@ var fs = require('fs'),
 
 var config = {
     source: [
-        '/Users/username/directory/directory-to-watch',
-        'directory/'
+        '/Users/emichaelson/Code/trunk.professional_services/Ralph_Lauren/',
+        'trunk.professional_services/'
         ],
-    target: '/Volumes/C/Users/username/target/',
+    target: '/Volumes/C/Users/emichaelson/test2/',
     options: {
         exclude: ['node_modules', '~', '#', /^\./]
     }
-}
+};
 
 watchTree(config.source[0], config.options, function(event) {
 
