@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-module.exports = function copyFile ( source, target, cb ) {
+function copyFile(source, target, cb) {
     var cbCalled = false;
 
     var rd = fs.createReadStream(source);
@@ -25,3 +25,5 @@ module.exports = function copyFile ( source, target, cb ) {
         }
     }
 }
+
+module.exports = copyFile;

@@ -4,37 +4,37 @@ var fs = require('fs'),
     copyFile = require('./copyfile'),
     watchTree = require('fs-watch-tree').watchTree;
 
-var config = {
-    source: [
-        '/Users/emichaelson/Code/trunk.professional_services/Ralph_Lauren/',
-        'trunk.professional_services/'
-        ],
-    target: '/Volumes/C/Users/emichaelson/test2/',
-    options: {
-        exclude: ['node_modules', '~', '#', /^\./]
-    }
-};
+function watcher(source, target, options) {
 
-watchTree(config.source[0], config.options, function(event) {
+    watchTree(source, options, function(event) {
 
-    var fname = event.name.split( config.source[1] )[1],
-        fpath = config.target + fname,
-        fdir = path.dirname(fpath);
+        var fname = path.basename(event.name),
+            fpath = path.normalize(target + '/' + fname);
 
-    if ( event.isDelete() )
-        fs.unlink(fpath, function (err) {
-          if (err) throw err;
-          console.log('Deleted ' + fpath);
-        });
-    else
-        mkpath(fdir, function(err) { // make path if it doesn't exist
+        if (event.isDelete())
+            remove(fpath);
+        else
+            copy(event.name, fpath);
+            
+    });
+}
+
+function remove(filePath) {
+    fs.unlink(fpath, function(err) {
+        if (err) throw err;
+        console.log('Deleted ' + fpath);
+    });
+}
+
+function copy(source, target) {
+    mkpath(path.dirname(source), function(err) { // make path if it doesn't exist
+        if (err) throw err;
+        copyFile(source, target, function(err) {
             if (err) throw err;
-
-            copyFile(event.name, fpath, function(err) {
-                if (err) throw err;
-                console.log('Updated ' + fpath);
-            });
-
+            console.log('Copied ' + source + ' to ' + target);
         });
 
-});
+    });
+}
+
+module.exports = watcher;
