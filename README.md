@@ -28,11 +28,7 @@ forever stopall
 
 ### Script Configuration
 
-This part needs some work. Right now the `watcher.js` script has a config object where `source` and `target` can be specified.
-
-`source` is given in two parts, the full directory path and the last portion of the path that is unnecessary. That's a confusing way to put it. 
-
-If your first source argument is `/the/full/path/to/the/directory/thesefiles`, the second might be `directory/`.
+The watch.js file is simply used to define a configuration object (just for readability) which calls the `watcher` module.
 
 ### Copying from Mac to Parallels
 
@@ -44,4 +40,4 @@ ls /Volumes
 
 ## ToDo
 
-* starting the script should handle copying the whole directory (to get any changes that may have happened while script is not running)
+* handle bringing the directory up to date after the script has been down for some time
