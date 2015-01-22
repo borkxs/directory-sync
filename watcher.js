@@ -17,9 +17,9 @@ function watcher(source, target, options) {
 }
 
 function remove(filePath) {
-    fs.unlink(fpath, function(err) {
+    fs.unlink(filePath, function(err) {
         if (err) throw err;
-        console.log('Deleted ' + fpath);
+        console.log( new Date(), 'Deleted ' + filePath);
     });
 }
 
@@ -28,7 +28,7 @@ function copy(source, target) {
         if (err) throw err;
         copyFile(source, target, function(err) {
             if (err) throw err;
-            console.log('Copied ' + source + ' to ' + target);
+            console.log( new Date(), 'Copied ' + source + ' to ' + target);
         });
     });
 }
