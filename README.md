@@ -10,7 +10,11 @@ Uses a handful of small node tools to keep a master-slave directory sync relatio
 
 ## Usage
 
-Right now it only works if you have write access to the target directory. Initial setup should be copying the entire directory manually to the target location and ensuring that the directory is not read-only.
+Recommend using rsync or something similar to bring the entire directory up to date, then directory-sync for watching your individual file saves.
+
+You should only need one instance of receiver.js running. For now, each directory will need to have watcher.js running in it.
+
+Receiver can be on any machine that you have http access to.
 
 ### Forever
 
@@ -29,15 +33,3 @@ forever stopall
 ### Script Configuration
 
 The watch.js file is simply used to define a configuration object (just for readability) which calls the `watcher` module.
-
-### Copying from Mac to Parallels
-
-Mount your parallels harddrive on your mac and check for it's location in /Volumes.
-
-```
-ls /Volumes
-```
-
-## ToDo
-
-* handle bringing the directory up to date after the script has been down for some time

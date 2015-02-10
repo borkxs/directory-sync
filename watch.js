@@ -1,8 +1,9 @@
 var watcher = require('./watcher');
 
 var config = {
-	source: '/Users/erikmichaelson/Code/js/directory-sync/test1',
-	target: '/Users/erikmichaelson/Code/js/directory-sync/test2',
+	source: '/Users/emichaelson/some/directory',
+	target: '/Users/emichaelson/other/directory',
+	server: 'http://server',
 	options: {
 		exclude: ['node_modules', '~', '#', /^\./]
 	}

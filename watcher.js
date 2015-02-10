@@ -1,36 +1,45 @@
 var fs = require('fs'),
     path = require('path'),
     mkpath = require('mkpath'),
-    copyFile = require('./copyfile'),
+    request = require('request'),
     watchTree = require('fs-watch-tree').watchTree;
 
-function watcher(source, target, options) {
+function watcher( source, target, server, options ) {
     watchTree(source, options, function(event) {
         var fname = path.basename(event.name),
             fpath = path.normalize(target + '/' + event.name.split(source)[1]);
 
         if (event.isDelete())
-            remove(fpath);
+            remove(fpath, server);
         else
-            copy(event.name, fpath); 
+            copy(event.name, fpath, server);
     });
 }
 
-function remove(filePath) {
-    fs.unlink(filePath, function(err) {
-        if (err) throw err;
-        console.log( new Date(), 'Deleted ' + filePath);
+function remove( filePath, receiver ) {
+    request({ method: 'DELETE', uri: receiver, headers: { target: filePath }}, log);
+}
+
+function copy( source, target, receiver ) {
+
+    fs.lstat( source, function  (err, stats) {
+        if ( err ) throw err;
+        if ( stats.isFile() ) {
+            console.log('sending', source);
+            fs.createReadStream( source ).pipe( request({
+                method: 'PUT', 
+                uri: receiver, 
+                headers: { source: source, target: target } // should look up best practices for headers
+            }, log));
+        }
     });
 }
 
-function copy(source, target) {
-    mkpath(path.dirname(source), function(err) { // make path if it doesn't exist
-        if (err) throw err;
-        copyFile(source, target, function(err) {
-            if (err) throw err;
-            console.log( new Date(), 'Copied ' + source + ' to ' + target);
-        });
-    });
+function log ( err, res ) {
+    if ( err )
+        console.log( err );
+    else
+        console.log( res.body );
 }
 
 module.exports = watcher;
