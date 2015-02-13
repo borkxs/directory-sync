@@ -4,6 +4,7 @@
     "author": "Erik Michaelson <emichaelson@meta-comm.com>",
     "dependencies": {
         "mkpath": "*",
-        "fs-watch-tree": "*"
+        "fs-watch-tree": "*",
+        "request": "*"
     }
 }
