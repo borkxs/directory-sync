@@ -1,12 +1,14 @@
-var watcher = require('./watcher');
+var watcher = require('./watcher'),
 
-var config = {
-	source: '/Users/emichaelson/some/directory',
-	target: '/Users/emichaelson/other/directory',
-	server: 'http://server',
-	options: {
-		exclude: [ '.git', '.idea', 'node_modules', '~', '#', /^\./ ]
-	}
-};
+    server = 'http://server',
 
-watcher(config.source, config.target, config.server, config.options);
+    options = { exclude: [ '.git', '.idea', 'node_modules', '~', '#', /^\./ ] },
+
+    directories = process.argv.slice(2);
+
+directories.forEach( function ( dir ) {
+    var source = '/Users/emichaelson/source/' + dir,
+        target = '/Users/emichaelson/target/' + dir;
+
+    watcher(source, target, server, options);
+});
