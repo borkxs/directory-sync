@@ -2,7 +2,7 @@
 
 ## About
 
-Uses a handful of small node tools to keep a master-slave directory sync relationship.
+Uses a handful of small node tools to keep a directory sync relationship.
 
 * fs-watch-tree: does a recurse fs.watch on a directory
 * mkpath: for making every necessary folder in a path (i.e. `/foo/bar/baz/`)
